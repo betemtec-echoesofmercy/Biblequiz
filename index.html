@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QUIZ TIME - BIBLE QUIZ | Echoes of Mercy</title>
+<meta property="og:title" content="🙏 QUIZ TIME - Bible Quiz - Echoes of Mercy">
+<meta property="og:description" content="21 ദിവസത്തെ ബൈബിൾ ക്വിസ് - ഇന്നത്തെ ചോദ്യം ഉത്തരം നൽകൂ!">
+<meta property="og:type" content="website">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,'Noto Sans Malayalam',sans-serif;background:linear-gradient(135deg,#1a1a2e,#16213e);color:#fff;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:15px}
+.container{max-width:500px;width:100%;background:#fff;color:#222;border-radius:20px;overflow:hidden;box-shadow:0 15px 40px rgba(0,0,0,0.4)}
+.header{background:linear-gradient(135deg,#f5af19,#f12711);padding:20px;text-align:center;color:#fff}
+.header h1{font-size:22px}
+.header p{opacity:0.9;margin-top:5px;font-size:14px}
+.day-badge{display:inline-block;background:rgba(255,255,255,0.25);padding:4px 12px;border-radius:20px;font-size:12px;margin-top:8px}
+.content{padding:20px}
+.question-box{background:#f8f9ff;border-left:5px solid #f12711;padding:15px;border-radius:10px;margin-bottom:20px;font-size:18px;line-height:1.5;font-weight:600}
+.options{display:flex;flex-direction:column;gap:12px}
+.opt{padding:14px 16px;border:2px solid #e0e0e0;border-radius:12px;cursor:pointer;transition:all 0.3s ease;background:#fff;font-size:16px;text-align:left}
+.opt:hover{border-color:#f5af19;background:#fff8e1}
+.opt.selected{border-color:#2196F3;background:#E3F2FD;color:#0D47A1;border-width:3px;font-weight:600}
+.opt.correct-fill{background:#00c853!important;border-color:#00c853!important;color:#fff!important;transform:scale(1.02)}
+.opt.wrong-fill{background:#d50000!important;border-color:#d50000!important;color:#fff!important;transform:scale(1.02)}
+.opt.correct-outline{background:#e8f5e9!important;border-color:#00c853!important;color:#1b5e20!important;border-width:3px!important}
+.opt.wrong-outline{background:#ffebee!important;border-color:#d50000!important;color:#b71c1c!important;border-width:3px!important}
+.btn{width:100%;padding:14px;background:linear-gradient(135deg,#f5af19,#f12711);color:#fff;border:none;border-radius:12px;font-size:17px;font-weight:700;cursor:pointer;margin-top:20px}
+.btn:disabled{opacity:0.5;cursor:not-allowed}
+.input{width:100%;padding:12px;border:2px solid #ddd;border-radius:10px;margin-bottom:12px;font-size:15px}
+.result{text-align:center;padding:20px}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>📖 QUIZ TIME</h1>
+<p>Echoes of Mercy - Bible Quiz</p>
+<div class="day-badge" id="dayBadge">Day 1 / 21</div>
+</div>
+<div class="content" id="app">
+<div style="text-align:center;padding:20px">
+<input id="nameInput" class="input" placeholder="നിങ്ങളുടെ പേര് / Your Name">
+<input id="placeInput" class="input" placeholder="സ്ഥലം / Place (Optional)">
+<button class="btn" onclick="startQuiz()">START QUIZ 🚀</button>
+<p style="margin-top:15px;font-size:12px;color:#666">21 ദിവസം - ദിവസം 1 അവസരം - 2 മാർക്ക് + 6AM മുൻപ് 2 ബോണസ്!</p>
+</div>
+</div>
+</div>
+
+<script>
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyafQhgU3U34dcEB_rHlVgAWldoQd5WBXCCvlGgUs3ykBy9dKXYSXBdDhiWuq6bKmC8FA/exec';
+
+const QUIZ_21 = [
+  {"q":" മിദ്യാൻ പുരോഹിതനായ യിത്രോവിനെ വേറെ ഏത് പേരിൽ ആണ് പഴയ നിയമത്തിൽ പ്രധാനമായും വിളിച്ചിരിക്കുന്നത്?","options":["രെയൂവേൽ ","ഹോബാബ് ","പുടിയേൽ ","അഹീസാക്ക് "],"correct":0},
+  {"q":"\"തബീഥ\" എന്ന് പേരുള്ള ശിഷ്യയുടെ ഗ്രീക്ക് നാമം എന്താണ്?","options":["മറിയ ","ദൊർക്കാസ് ","പ്രിസ്കില്ല","രൂത്ത് "],"correct":1},
+  {"q":"രാഹാബ് ആരുടെ ഭാര്യയായിരുന്നു?","options":["സൽമോൻ ","ബോവസ് ","നഹ്ശോൻ ","അമീനാദാബ് "],"correct":0},
+  {"q":"പൗലോസിനെ അന്ത്യോക്യയിൽ വെച്ച് പരസ്യമായി എതിർത്ത അപ്പോസ്തലൻ ആര്?","options":["യോഹന്നാൻ ","യാക്കോബ് ","പത്രോസ് ","ബർന്നബാസ് "],"correct":2},
+  {"q":"എദൻ തോട്ടം അല്ലാതെ \"യഹോവയുടെ തോട്ടം\" എന്ന് വിശേഷിപ്പിക്കപ്പെട്ട മറ്റൊരു സ്ഥലം?","options":["സോദോം ","ഹെബ്രോൻ ","സോവർ ","ബഥേൽ "],"correct":0},
+  {"q":"പൗലോസ് ഏത് പട്ടണത്തിൽ വെച്ചാണ് തന്റെ തല മുണ്ഡനം ചെയ്തത്?","options":["അന്ത്യോക്യയിൽ","കൊരിന്ത്യയിൽ ","തെസ്സലോനിക്യയിൽ ","കെംക്രയയിൽ "],"correct":3},
+  {"q":"യേശുക്രിസ്തുവിന്റെ വംശാവലിയിൽ ഉൾപ്പെടാത്തത് ആരാണ്?","options":["രാഹാബ് ","താമർ ","സാറാ ","രൂത്ത് "],"correct":2},
+  {"q":"ശലോമോന്റെ അമ്മയായ ബെത്ത് -ശേബയുടെ മറ്റൊരു പേര്?","options":["യെരൂശ ","അബീഗയിൽ ","ശൂലമി ","മീഖൾ "],"correct":0},
+  {"q":"മരുഭൂമിയിൽ വെച്ച് മോശെക്ക് കാണിച്ചു കൊടുത്ത \"സാക്ഷ്യകൂടാരം \" പണിയാൻ ആര് നേതൃത്വം നൽകി?","options":["മോശ ","യോശുവ ","അഹരോൻ ","കാലേബ് "],"correct":1},
+  {"q":"മഹേർ - ശാലാൽ - ഹാശ് - ബസ് ","options":["കൊള്ള വേഗത്തിൽ വരുന്നു ","എന്റെ ശക്തി ദൈവമാണ് ","ദൈവം നമ്മോടു കൂടെ ","സമാധാനത്തിന്റെ പ്രഭു "],"correct":0},
+  {"q":"ഹെർമ്മോൻ പർവ്വതത്തിന് അമോര്യർ നൽകിയിരിക്കുന്ന മറ്റൊരു പേര്?","options":["പിസ്ഗ ","ഹോരേബ് ","സേയീർ ","സെനീർ "],"correct":3},
+  {"q":"\"യഹോവ എന്റെ വെളിച്ചവും എന്റെ രക്ഷയും ആകുന്നു\". ഈ വാക്യം ഏത് സങ്കീർത്തനത്തിൽ?","options":["സങ്കീർത്തനം 23","സങ്കീർത്തനം 27","സങ്കീർത്തനം 35","സങ്കീർത്തനം 46"],"correct":1},
+  {"q":"യിത്രോവിന് എത്ര പുത്രന്മാർ ഉണ്ടായിരുന്നു?","options":["5","4","12","7"],"correct":3},
+  {"q":"ശലോമോന്റെ ഭരണകാലത്തെ പ്രധാന പുരോഹിതൻ ആര്?","options":["അബ്യാഥാർ ","സാദോക്ക് ","അഹീത്തൂബ് ","അഹീമേലേക്ക് "],"correct":1},
+  {"q":"മോശെയുടെ മുൻപാകെ ജനത്തെ അമർത്തിയ വ്യക്തി ആരാണ്?","options":["കാലേബ് ","യോശുവ ","അഹരോൻ ","മിര്യാം "],"correct":0},
+  {"q":"\"ഉപ്പ് കാരമില്ലാതെ പോയാൽ അതിനു എന്ത് കൊണ്ട് രസം വരുത്താം\" എന്ന് രേഖപ്പെടുത്തിയ സുവിശേഷം?","options":["മത്തായി ","ലൂക്കോസ് ","മർക്കോസ് ","യോഹന്നാൻ "],"correct":1},
+  {"q":"പെഥോരിൽ താമസിച്ചിരുന്ന ബെയൊരിന്റെ മകൻ ആരാണ്?","options":["ഓഗ് ","ബാലാക്ക് ","സീഹോൻ ","ബിലെയാം "],"correct":3},
+  {"q":"സിപ്പോറയുടെ അപ്പനായ മിദ്യാൻ പുരോഹിതന്റെ പേരെന്ത്?","options":["എലീയാസർ ","ബലാക്ക് ","രെയൂവേൽ ","ഹോബ്ബാബ് "],"correct":2},
+  {"q":"വെണ്മഴു കയ്യിൽ ഏന്തിയ ആറു പുരുഷന്മാരെ കണ്ടവനാര്?","options":["യെഹസ്‌ക്കേൽ ","യെശയ്യാവ് ","മീഖാ ","യോവേൽ "],"correct":0},
+  {"q":"\"ആമേൻ\" എന്ന പദം ബൈബിളിൽ ആദ്യമായി കാണുന്നത് ഏത് പുസ്തകത്തിലാണ്?","options":["ആവർത്തന പുസ്തകം ","സംഖ്യാ പുസ്തകം ","യോശുവ ","1 ദിനവൃത്താന്തം "],"correct":1},
+  {"q":"15 ഉം അതിനു മുകളിലും വാക്യമുള്ള സങ്കീർത്തനങ്ങൾ എത്ര?","options":["50","61","46","58"],"correct":3}
+];
+
+let currentDay = 0;
+let selected = -1;
+let userName = "";
+let currentQ = null;
+
+const VERSES = [
+  {"text":"യഹോവ എന്റെ ഇടയനാകുന്നു; എനിക്ക് മുട്ടുണ്ടാകയില്ല.","ref":"സങ്കീ 23:1"},
+  {"text":"കർത്താവിൽ ആശ്രയിക്കുന്നവർ പുതിയ ശക്തി പ്രാപിക്കും.","ref":"യെശയ്യാ 40:31"},
+  {"text":"ദൈവം നമുക്ക് സങ്കേതവും ബലവും ആകുന്നു.","ref":"സങ്കീ 46:1"},
+  {"text":"എല്ലാറ്റിനും തക്കസമയമുണ്ട്.","ref":"സഭാപ്രസംഗി 3:1"},
+  {"text":"യഹോവയുടെ വചനം നമ്മെ പ്രകാശിപ്പിക്കുന്നു.","ref":"സങ്കീ 119:105"},
+  {"text":"ഭയപ്പെടരുത്, ഞാൻ നിന്നോടുകൂടെ ഉണ്ട്.","ref":"യെശയ്യാ 41:10"},
+  {"text":"ദൈവസ്നേഹം ഒരിക്കലും മാറുന്നില്ല.","ref":"യിരെമ്യാ 31:3"},
+  {"text":"ക്രിസ്തുവിൽ എല്ലാം പുതിയതാകുന്നു.","ref":"2 കൊരി 5:17"},
+  {"text":"സ്നേഹം എല്ലാം സഹിക്കുന്നു, എല്ലാം വിശ്വസിക്കുന്നു.","ref":"1 കൊരി 13:7"},
+  {"text":"നിങ്ങൾ അന്വേഷിക്കുമ്പോൾ എന്നെ കണ്ടെത്തും.","ref":"യിരെമ്യാ 29:13"},
+  {"text":"കർത്താവ് എന്റെ വെളിച്ചവും രക്ഷയുമാകുന്നു.","ref":"സങ്കീ 27:1"},
+  {"text":"ദൈവത്തിന് സകലവും സാധ്യം.","ref":"മത്താ 19:26"},
+  {"text":"സമാധാനം ഞാൻ നിങ്ങൾക്ക് തരുന്നു.","ref":"യോഹ 14:27"},
+  {"text":"വിശ്വസിക്കുന്നവന് സകലവും സാധ്യം.","ref":"മർക്കോ 9:23"},
+  {"text":"കർത്താവ് നിന്നെ കാക്കും.","ref":"സങ്കീ 121:7"},
+  {"text":"നന്ദിയോടെ സ്തുതിക്കുവിൻ.","ref":"സങ്കീ 100:4"},
+  {"text":"യഹോവയുടെ കൃപ എന്നേക്കുമുള്ളത്.","ref":"സങ്കീ 136:1"},
+  {"text":"ദൈവം സ്നേഹം തന്നെ ആകുന്നു.","ref":"1 യോഹ 4:8"},
+  {"text":"നീതിമാന്റെ പ്രാർത്ഥന ഫലമുള്ളത്.","ref":"യാക്കോ 5:16"},
+  {"text":"കർത്താവിൽ സന്തോഷിക്കുവിൻ.","ref":"ഫിലി 4:4"},
+  {"text":"വചനം ജീവനും വെളിച്ചവുമാകുന്നു.","ref":"യോഹ 1:4"}
+];
+
+
+function getDayIndex(){
+  const start = new Date(2026, 6, 15);
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  start.setHours(0,0,0,0);
+  let diff = Math.floor((today - start) / (1000*60*60*24));
+  if(diff < 0) diff = 0;
+  if(diff >= QUIZ_21.length) diff = diff % QUIZ_21.length;
+  return diff;
+}
+
+function todayStr(){
+  return new Date().toISOString().slice(0,10);
+}
+function alreadyPlayed(){
+  return localStorage.getItem('quiz_played_'+todayStr()) !== null;
+}
+function markPlayed(){
+  localStorage.setItem('quiz_played_'+todayStr(),'1');
+}
+
+function startQuiz(){
+  userName = document.getElementById('nameInput').value.trim();
+  userPlace = document.getElementById('placeInput')?.value?.trim() || '';
+  console.log('Place saved:', userPlace);
+  if(!userName){ alert('ദയവായി പേര് എഴുതൂ / Please enter name'); return; }
+  if(alreadyPlayed()){
+    document.getElementById('app').innerHTML = '<div class="result"><h2>🙏 നിങ്ങൾ ഇന്ന് കളിച്ചു കഴിഞ്ഞു!</h2><p style="margin:15px 0">1 ദിവസം 1 അവസരം മാത്രം.<br>നാളെ വീണ്ടും വരൂ!</p><button class="btn" onclick="location.reload()">OK</button></div>';
+    return;
+  }
+  currentDay = getDayIndex();
+  currentQ = QUIZ_21[currentDay];
+  document.getElementById('dayBadge').innerText = 'Day ' + (currentDay+1) + ' / 21';
+  showQuestion();
+}
+
+function showQuestion(){
+  selected = -1;
+  let q = currentQ;
+  let html = '<div class="question-box">'+q.q+'</div><div class="options">';
+  q.options.forEach((opt,i)=>{
+    html += '<div class="opt" id="opt'+i+'" onclick="selectOpt('+i+')">'+String.fromCharCode(65+i)+'. '+opt+'</div>';
+  });
+  html += '</div><button class="btn" id="submitBtn" onclick="submitAns()" disabled>Submit Answer</button>';
+  document.getElementById('app').innerHTML = html;
+}
+
+function selectOpt(i){
+  selected = i;
+  document.querySelectorAll('.opt').forEach(el=>el.classList.remove('selected'));
+  document.getElementById('opt'+i).classList.add('selected');
+  document.getElementById('submitBtn').disabled = false;
+}
+
+function submitAns(){
+  if(selected < 0) return;
+  let q = currentQ;
+  let isCorrect = selected === q.correct;
+  
+  document.querySelectorAll('.opt').forEach(el=>el.style.pointerEvents='none');
+  let btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.innerText = 'Checking...';
+
+  // 1st sec: full fill
+  if(isCorrect){
+    document.getElementById('opt'+selected).classList.add('correct-fill');
+  } else {
+    document.getElementById('opt'+selected).classList.add('wrong-fill');
+    document.getElementById('opt'+q.correct).classList.add('correct-fill');
+  }
+
+  setTimeout(()=>{
+    // After 1 sec: outline only
+    document.querySelectorAll('.opt').forEach(el=>{
+      el.classList.remove('correct-fill','wrong-fill');
+    });
+    if(isCorrect){
+      document.getElementById('opt'+selected).classList.add('correct-outline');
+    } else {
+      document.getElementById('opt'+selected).classList.add('wrong-outline');
+      document.getElementById('opt'+q.correct).classList.add('correct-outline');
+    }
+    // Show correct for 1 sec only, then remove all colors before showing result
+    setTimeout(()=>{
+      document.querySelectorAll('.opt').forEach(el=>{
+        el.classList.remove('correct-outline','wrong-outline','correct-fill','wrong-fill');
+      });
+      showResult(isCorrect);
+    }, 1000);
+  }, 1000);
+}
+
+
+function generateCode(){
+  const letters = "ABCDEFGHJKLMNPQRSTUVWXYZ"; // No I,O to avoid confusion
+  let code = "";
+  for(let i=0;i<4;i++) code += letters.charAt(Math.floor(Math.random()*letters.length));
+  return code;
+}
+
+function showResult(isCorrect){
+  let now = new Date();
+  let hour = now.getHours();
+  let baseMark = isCorrect ? 2 : 0;
+  let bonusMark = (isCorrect && hour < 6) ? 2 : 0;
+  let todayMark = baseMark + bonusMark;
+
+  let totalMarks = parseInt(localStorage.getItem('quiz_total_marks')||'0') + todayMark;
+  localStorage.setItem('quiz_total_marks', totalMarks);
+  let totalPlayed = parseInt(localStorage.getItem('quiz_total_played')||'0')+1;
+  localStorage.setItem('quiz_total_played', totalPlayed);
+  let totalCorrect = parseInt(localStorage.getItem('quiz_total_correct')||'0');
+  if(isCorrect) totalCorrect++;
+  localStorage.setItem('quiz_total_correct', totalCorrect);
+  markPlayed();
+
+  let bonusText = bonusMark>0 ? '<br>🌅 Early Bird Bonus (Before 6 AM): +2' : '';
+  let msg = isCorrect ? '✅ ശരി! ദൈവം അനുഗ്രഹിക്കട്ടെ!' : '❌ തെറ്റ്! ശരിയായ ഉത്തരം: ' + currentQ.options[currentQ.correct];
+
+  // Generate code only for winners
+  let code = "";
+  let codeSection = "";
+  if(isCorrect){
+    code = generateCode() + (currentDay+1); // 4 letters + day for tracking e.g., ABCK2
+    let displayCode = code.substring(0,4); // Show only 4 letters to user
+    // Store full code for sheet
+    window._winnerCode = code;
+    codeSection = `
+      <div id="codePopup" style="background:linear-gradient(135deg,#fff3cd,#ffe082);border:3px dashed #f5af19;padding:15px;border-radius:12px;margin:15px 0;animation:pop 0.5s ease">
+        <p style="font-size:14px;color:#795548">🎉 You Won! Your Secret Code:</p>
+        <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin:10px 0">
+          <span id="secretCode" style="font-size:32px;font-weight:900;letter-spacing:8px;color:#d32f2f;background:#fff;padding:8px 16px;border-radius:8px;border:2px solid #f5af19">${displayCode}</span>
+          <button onclick="copyCode()" style="background:#4caf50;color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer">Copy</button>
+        </div>
+        <p style="font-size:12px;color:#5d4037">📋 Copy this code and paste into the comment box</p>
+      </div>
+      <style>@keyframes pop{0%{transform:scale(0.8)}50%{transform:scale(1.1)}100%{transform:scale(1)}}</style>
+    `;
+  }
+
+  document.getElementById('app').innerHTML = 
+    '<div class="result">'+
+    '<h2>'+(isCorrect?'🎉 അഭിനന്ദനങ്ങൾ!':'🙏 ശ്രമിച്ചതിന് നന്ദി!')+'</h2>'+
+    '<p style="margin:10px 0;font-weight:600">'+msg+'</p>'+
+    '<div style="background:#f8f9ff;padding:15px;border-radius:12px;margin:15px 0">'+
+    '<p style="font-size:20px"><b>Today: '+todayMark+' Marks</b></p>'+
+    '<p style="font-size:14px;margin-top:5px">'+(isCorrect?'Correct: 2 Marks':'Wrong: 0 Marks')+bonusText+'</p>'+
+    '<p style="font-size:16px;margin-top:10px;background:#fff3cd;padding:6px;border-radius:8px">Total: <b>'+totalMarks+' Marks</b> | Days: '+totalPlayed+'</p>'+
+    '</div>'+
+    codeSection+
+    '<button class="btn" onclick="showThanksPage('+isCorrect+','+todayMark+','+totalMarks+','+totalPlayed+')">'+(isCorrect?'Continue →':'Next →')+'</button>'+
+    '</div>';
+
+  // Save to Google Sheet with code
+  try{
+    fetch(SHEET_URL, {
+      method:'POST',
+      mode:'no-cors',
+      body: JSON.stringify({
+        name: userName,
+        place: userPlace,
+        day: currentDay+1,
+        question: currentQ.q,
+        answer: currentQ.options[selected],
+        correct: isCorrect ? 'YES' : 'NO',
+        marks: todayMark,
+        bonus: bonusMark,
+        time: now.toLocaleString(),
+        code: isCorrect ? window._winnerCode : ''
+      })
+    });
+  }catch(e){}
+}
+
+function copyCode(){
+  let code = document.getElementById('secretCode').innerText;
+  navigator.clipboard.writeText(code).then(()=>{
+    let btn = event.target;
+    btn.innerText = 'Copied!';
+    setTimeout(()=>btn.innerText='Copy',1500);
+  });
+}
+
+function showThanksPage(isCorrect, todayMark, totalMarks, totalPlayed){
+  let v = VERSES[currentDay % VERSES.length];
+  document.getElementById('app').innerHTML = 
+    '<div class="result">'+
+    '<h2 style="font-size:22px">Thanks. Come back tomorrow 🙏</h2>'+
+    '<p style="margin:15px 0;color:#666">നാളെ വീണ്ടും കാണാം! ദൈവം അനുഗ്രഹിക്കട്ടെ!</p>'+
+    '<div style="background:linear-gradient(135deg,#e8f5e9,#f1f8e9);padding:16px;border-radius:12px;border-left:5px solid #00c853;margin:20px 0;text-align:left">'+
+    '<p style="font-size:16px;font-style:italic;color:#2e7d32;line-height:1.6">\"'+v.text+'\"</p>'+
+    '<p style="font-size:14px;font-weight:700;color:#1b5e20;margin-top:8px;text-align:right">- '+v.ref+'</p>'+
+    '</div>'+
+    '<p style="font-size:13px;color:#999;margin-top:20px">Your Score Today: <b>'+todayMark+' Marks</b> | Total: <b>'+totalMarks+'</b></p>'+
+    '<button class="btn" onclick="location.reload()">Back to Home</button>'+
+    '</div>';
+}
+
+
+(function(){
+  let d = getDayIndex();
+  document.getElementById('dayBadge').innerText = 'Day ' + (d+1) + ' / 21 - ' + new Date().toLocaleDateString('en-GB');
+})();
+</script>
+</body>
+</html>
